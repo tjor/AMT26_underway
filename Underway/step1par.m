@@ -19,6 +19,7 @@ function step1par(jday)
    strdate = strdates(jdays==jday,:);
 
    doy = sprintf('%d',jday);
+  # keyboard
    % Check if save file exists
    savefile = [savedir, fproc_name , doy, '.mat'];
 
