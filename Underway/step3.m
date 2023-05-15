@@ -215,7 +215,7 @@ for ifn = 1:size(fn,1)
         amt_optics.flow = [amt_optics.flow; out.flow.mean];      % NOTE the time of the flow has been match to the biased optics data in step1_make_optics_better_only_flow.m
     else
         disp('flow do not exist in file: What to do?')
-        keyboard
+    #    keyboard # comment this out if there are missing step 2 files
     endif
 
     % Check if ctd variable exists
@@ -224,7 +224,7 @@ for ifn = 1:size(fn,1)
         amt_optics.ctd.sal = [amt_optics.ctd.sal; out.ctd.mean(:,3)];    
     else
         disp('ctd do not exist in file: What to do?')
-        keyboard
+     #   keyboard
     endif
 
 
@@ -242,7 +242,7 @@ for ifn = 1:size(fn,1)
         endfor
     else
         disp('uway do not exists in file: What to do?')
-        keyboard
+   #     keyboard 
     endif
 
 endfor
@@ -284,7 +284,7 @@ amt_optics.bb3.bbp_corr = amt_optics.bb3.bbp - amt_optics.bb3.bb02;
 
 
 # scale ac9 chl to acs chl
-run("cmp_chlACs2AC9_ratio");
+# run("cmp_chlACs2AC9_ratio");
 
 
 % keyboard

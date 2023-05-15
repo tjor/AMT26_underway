@@ -10,7 +10,7 @@ graphics_toolkit("gnuplot");
 
 %-----------------------------
 CRUISE = "AMT26";
-WAP_ROOT = lower(CRUISE); % tjor: `root" part of WAP file 
+WAP_ROOT = strcat(lower(CRUISE),'_16') ; % tjor: `root" part of WAP file 
 #WAP_ROOT = strcat(lower(CRUISE),"b"); % tjor: `root" part of WAP file for <With_AC9_Without_ACS
 %-----------------------------
 % Variables to be changed during cruise according to specific setups and user needs
@@ -23,10 +23,18 @@ WAP_ROOT = lower(CRUISE); % tjor: `root" part of WAP file
 % day of ACS switch = 20181019, jday=292": "With_AC9_Without_ACS/"% end day 301
 # last day is 20181028
 % dates
+ 
+ 
+# inidate = "20160923"; # 
+#inidate = "20161017";
+#enddate = "20161102";  # 
 
+#
+inidate = "20161016"; # missing metadata?
+enddate = "20161016";
 
-inidate = "20160923"; # first day
-enddate = "20161102"  # last day
+#inidate = "20161014"; # first day - jday 288 - testcase
+#enddate = "20161014"  # last day
 
 #inidate = "20181014";
 #enddate = "20180926";
@@ -40,7 +48,7 @@ enddate = "20161102"  # last day
 % (day is not processed if a file for the specified hour is not found)
 % Format is "0HH"
 WAPhour = "019"; % tjor: `processes all days with 0XXth hour of data present"
-WAPhour = "007"; % for final day
+#WAPhour = "007"; % for final day
 
 % Underway subdirectory where to find special wapped data
 % Leave with simple / if no special case
@@ -69,7 +77,7 @@ UWAY_WAP_SUBDIR = "/";
 if strcmp(UWAY_WAP_SUBDIR, "/") == 1 % tjor: this is the `default" config (i.e. without subdirectories inside WAP_extracted)
     dh8_instruments = {"ctd", "acs", "cstar", "bb3"};
     % Ports must corresponds to same ports as in dh8_instruments
-    dh8_ports = {2,7,5,1}; 
+    dh8_ports = {2,7,6,1}; 
     % Serial numbers are mainly needed for acs and ac9 config files, leave blank for other instruments
     dh8_serialnumber = {[], 122, 1426, 1173}; 
 endif
@@ -83,7 +91,7 @@ MAIN_PATH = "/users/rsg/tjor/scratch_network/AMT_underway/AMT26/";
 %MAIN_PATH = "/tom/AMT_underway/AMT28/"; %disp("\n\n---------THIS IS FOR GIORGIO---------\n\n"); fflush(stdout);
 #MAIN_PATH = "/fast_scratch/AMT28/"; disp("\n\n---------THIS IS FOR GIORGIO---------\n\n"); fflush(stdout);
 % MAIN_PATH = [MAIN_PATH, "/Data/", CRUISE,"/"];     % Root directory for current AMT cruise
-PATH_DATA = [MAIN_PATH, "Data/PML_optics"];        % Directory with all raw and wapped data
+PATH_DATA = [MAIN_PATH, "Data/PML_optics/"];        % Directory with all raw and wapped data
 #PATH_DATA  = "/data/datasets/cruise_data/active/AMT28/Optics_all/Optics/Data/";
 
 PATH_SOURCE = [MAIN_PATH, "Source/"];% Directory with all source code
@@ -126,6 +134,7 @@ PATH_TS = PATH_SHIP; # no compress directory for amt 26
 # Input parameters for ship"s underway data
 # 
 # here we assume that the ship"s uway data are always stored in daily folders called YYYYDOY (e.g., 2018290) 
+addpath(UWAY_DIR) # location where rd seatech and ocean logger functions are stored
 DIR_GPS = PATH_TS;
 GLOB_GPS = "2016\*";
 FN_GPS = "seatex-gga.ACO";

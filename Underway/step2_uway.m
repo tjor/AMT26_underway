@@ -12,6 +12,7 @@
    % Create date range
    [numdates, strdates, vecdates, jday_in] = get_date_range(inidate,enddate);
 
+
    fn_saved = glob([DIR_STEP1 "*mat"]);
 
    global YYYY = vecdates(1, 1); % Assumes all AMT days are within same year!! % used as processing Id
@@ -19,6 +20,7 @@
    % Change first day to process more than just last sampled day 
    first_day = find_index_strdate_in_glob(fn_saved, sprintf("%d", jday_in(1))); % follows from ini and end dates
    last_day = find_index_strdate_in_glob(fn_saved, sprintf("%d", jday_in(end)));
+
 
    % Need to overwrite array of jdays with dates from saved files
    for ifile = 1:length(fn_saved)
@@ -28,13 +30,13 @@
    dailyfiles = dir(  [DIR_STEP1 "*mat"]  ); % redundancy with line 27? just different format
 
 
-
    %first_day = 1;   
    for iday = first_day:last_day
        
         disp(["\n---------" dailyfiles(iday).name "--------\n"] )
         fflush(stdout);
-
+        
+  
        # initialize output structure with nans
            ini_out(dailyfiles(iday).name, jdays(iday));
 
@@ -45,7 +47,7 @@
                 DIR_GPS, GLOB_GPS, FN_GPS, FNC_GPS, \
                 DIR_METDATA, GLOB_METDATA, FN_METDATA, FNC_METDATA)  ;%
         disp("...done"); 
-        
+
 
         jday_str = dailyfiles(iday).name(end-6:end-4);
 

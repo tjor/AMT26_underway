@@ -17,13 +17,19 @@ function tmp = rd_seatech_gga(fn)
     
     d = dlmread(fn);
 
-    tmp.time = y0(d(1))-1+d(:,2);
+    if length(d) > 0
+	    tmp.time = y0(d(1))-1+d(:,2);
 
-    tmp.lat = d(:,6); % [degN]
-    tmp.lon = d(:,7); % [degE]
+	    tmp.lat = d(:,6); % [degN]
+	    tmp.lon = d(:,7); % [degE] 
+	    
+    else
 
+           tmp.time = nan*ones(1,72001);
 
-
+	   tmp.lat = nan*ones(1,72001);
+	   tmp.lon = nan*ones(1,72001);
+    end
 %    % this is to deal with change in format through the cruise
 %    if length(tmp.time==1)
 %
