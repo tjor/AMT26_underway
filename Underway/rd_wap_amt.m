@@ -62,7 +62,7 @@ function WAPvars = rd_wap_amt(flowdir, filename, fileext, dh8_instruments, dh8_p
       WAPvars.flow = flow;
    catch
        disp('No flow data');
-       keyboard
+       # keyboard
    end_try_catch
    %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 

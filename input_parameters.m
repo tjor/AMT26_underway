@@ -10,7 +10,8 @@ graphics_toolkit("gnuplot");
 
 %-----------------------------
 CRUISE = "AMT26";
-WAP_ROOT = strcat(lower(CRUISE),'_16') ; % tjor: `root" part of WAP file 
+WAP_ROOT = strcat(lower(CRUISE),'_16') 
+#WAP_ROOT = strcat(lower(CRUISE), '_ACS167_NO_CSTAR_16'); % special casse
 #WAP_ROOT = strcat(lower(CRUISE),"b"); % tjor: `root" part of WAP file for <With_AC9_Without_ACS
 %-----------------------------
 % Variables to be changed during cruise according to specific setups and user needs
@@ -25,30 +26,32 @@ WAP_ROOT = strcat(lower(CRUISE),'_16') ; % tjor: `root" part of WAP file
 % dates
  
  
-# inidate = "20160923"; # 
-#inidate = "20161017";
-#enddate = "20161102";  # 
+inidate = "20160923"; # 
+#enddate=  "20160928"; # 
+#inidate = "20161014"; #
+#enddate = "20161016"; #
+# enddate = "20161015" #
+# inidate = "20161018"; #
+enddate = "20161102";  # 
 
-#
-inidate = "20161016"; # missing metadata?
-enddate = "20161016";
+#inidate = "20161016"; # missing metadata?
+#enddate = "20161016"; 
 
-#inidate = "20161014"; # first day - jday 288 - testcase
-#enddate = "20161014"  # last day
+# inidate = "20161014"; # first day - jday 288 - testcase
+# enddate = "20161014"  # last day
 
-#inidate = "20181014";
-#enddate = "20180926";
-#enddate = "20181028"; # last day
-#enddate = "20181028"; # last day
-
-%inidate = "20181015";
+# inidate = "20181014";
+# enddate = "20180926";
+# enddate = "20181028"; # last day
+# enddate = "20181028"; # last day
+# inidate = "20181015";
 %enddate = "20181025";
 
 % Hour of the day for which Wapped files are searched
 % (day is not processed if a file for the specified hour is not found)
 % Format is "0HH"
-WAPhour = "019"; % tjor: `processes all days with 0XXth hour of data present"
-#WAPhour = "007"; % for final day
+#WAPhour = "019"; % tjor: `processes all days with 0XXth hour of data present"
+WAPhour = "02"; % for final day
 
 % Underway subdirectory where to find special wapped data
 % Leave with simple / if no special case
@@ -76,10 +79,13 @@ UWAY_WAP_SUBDIR = "/";
 #    dh8_serialnumber = {122, 1173, 227,[]};
 if strcmp(UWAY_WAP_SUBDIR, "/") == 1 % tjor: this is the `default" config (i.e. without subdirectories inside WAP_extracted)
     dh8_instruments = {"ctd", "acs", "cstar", "bb3"};
+     #   dh8_instruments = {"ctd", "acs", "bb3"}; special case - jday 269
     % Ports must corresponds to same ports as in dh8_instruments
     dh8_ports = {2,7,6,1}; 
+ #   dh8_ports = {2,7,1}; 
     % Serial numbers are mainly needed for acs and ac9 config files, leave blank for other instruments
     dh8_serialnumber = {[], 122, 1426, 1173}; 
+    #dh8_serialnumber = {[], 122, 1173}; # special case 
 endif
 %-----------------------------
 
@@ -110,7 +116,7 @@ CTD_DIR = "Ship_CTD/";
 DATA_WAPPED = "WAP_Extracted/";
 DATA_RAW = "Raw/";
 DATA_FLOW = "Flow/";
-#DATA_WITH_BB3 = "with_BB3/";
+DATA_WITH_BB3 = "with_BB3/";
 
 
 %-----------------------------

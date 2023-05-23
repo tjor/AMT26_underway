@@ -19,7 +19,6 @@ function step1par(jday)
    strdate = strdates(jdays==jday,:);
 
    doy = sprintf('%d',jday);
-  # keyboard
    % Check if save file exists
    savefile = [savedir, fproc_name , doy, '.mat'];
 
@@ -184,8 +183,8 @@ function step1par(jday)
       endfor
 
       % flow sensors
-      tmp_flow = tmp_WAPvars.flow;
       try
+         tmp_flow = tmp_WAPvars.flow;
          flow = bindata_merge(flow, tmp_flow.time, tmp_flow.Hz(:,:));
          flow_v = bindata_merge(flow_v, tmp_flow.time, tmp_flow.valve(:,:));
          % Save to output var
@@ -193,7 +192,7 @@ function step1par(jday)
          WAPvars.flow_v = flow_v;
       catch
          disp('No flow data');
-         keyboard
+         #keyboard
       end_try_catch
 
     endfor

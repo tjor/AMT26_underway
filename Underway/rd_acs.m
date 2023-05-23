@@ -68,17 +68,17 @@ function [msec,c,a,cwl,awl,anc,c_cal,a_cal,c_T_cal,a_T_cal,T_bins] = rd_acs(fnam
 
 #	[dat] = textread(fname,'','headerlines',95);
 #	[dat] = textread(fname,'','delimiter','\t', 'headerlines',95);
+        try
+		if ~isempty(dat)
+			msec = dat(:,1);
+			c = dat(:,2:nwv+1);
+			a = dat(:,nwv+2:2*nwv+1);
+		anc = dat(:,end-4:end);
+		else
+			[msec,a,c,anc] = deal([]);
+		end
 
-	if ~isempty(dat)
-		msec = dat(:,1);
-		c = dat(:,2:nwv+1);
-		a = dat(:,nwv+2:2*nwv+1);
-        anc = dat(:,end-4:end);
-	else
-		[msec,a,c,anc] = deal([]);
-	end
-
-		
+	end	
 
 endfunction
 

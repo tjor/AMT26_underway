@@ -7,7 +7,7 @@ function chla = chlacs(acs)
 #
 
   if ~all(isnan(acs.ap))
-
+  
     wv650 = find(acs.wv==650); %  absorption at left of peak
     wv676 = find(acs.wv==676); % peak absoprtion wavelength
     wv714 = find(acs.wv==714); % absorption at right of peak
@@ -16,6 +16,7 @@ function chla = chlacs(acs)
     chla = (acs.ap(:,wv676) -39/65.*acs.ap(:,wv650)-26/65*acs.ap(:,wv714))./0.014; % conversion factor 0.014 m^2 mg^-1 of Chl
    
    else
+   #keyboard
     chla = nan(1440,1);
    endif
 endfunction    

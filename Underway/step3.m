@@ -134,6 +134,7 @@ for ifn = 1:size(fn,1)
     disp(["\n" fn(ifn).name])
     load([din fn(ifn).name]);
     
+
     %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
     % COMMENTED 2019 10 23 FN
     %
@@ -145,6 +146,9 @@ for ifn = 1:size(fn,1)
     %     [out, it_chl] = rm_noisy_acs_chl(out, t2remove_acs_chl, it_chl);
     %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
         
+      
+      
+    
 
     % Check if acs variable exists
     if ~isempty(intersect('acs', fieldnames(out)))
@@ -162,6 +166,8 @@ for ifn = 1:size(fn,1)
     else
         disp('acs do not exist in file')
     endif
+    
+
 
    % Check if ac9 variable exists
     if ~isempty(intersect('ac9', fieldnames(out)))
@@ -215,7 +221,7 @@ for ifn = 1:size(fn,1)
         amt_optics.flow = [amt_optics.flow; out.flow.mean];      % NOTE the time of the flow has been match to the biased optics data in step1_make_optics_better_only_flow.m
     else
         disp('flow do not exist in file: What to do?')
-    #    keyboard # comment this out if there are missing step 2 files
+       # keyboard # comment this out if there are missing step 2 files
     endif
 
     % Check if ctd variable exists
@@ -224,7 +230,7 @@ for ifn = 1:size(fn,1)
         amt_optics.ctd.sal = [amt_optics.ctd.sal; out.ctd.mean(:,3)];    
     else
         disp('ctd do not exist in file: What to do?')
-     #   keyboard
+       # keyboard
     endif
 
 
@@ -244,6 +250,7 @@ for ifn = 1:size(fn,1)
         disp('uway do not exists in file: What to do?')
    #     keyboard 
     endif
+
 
 endfor
 
@@ -290,8 +297,20 @@ amt_optics.bb3.bbp_corr = amt_optics.bb3.bbp - amt_optics.bb3.bb02;
 % keyboard
 eval([lower(CRUISE) '= amt_optics;']) # create amtXX structure
 
+# use past chl transect as a check all data has been processed (note: this will be non-exact as past data has been debiasesd &
+# anomolie filtered
+fn_pastdata = '/data/datasets/cruise_data/active/ACS_Chl/amtacs/AMT26_ACS_CHL-A_MEDFILT_BIAS_CORRECTED.csv'
+past_data = dlmread(fn_pastdata);
+past_lat = past_data(:,3);
+past_chl = past_data(:,5);
 
-
+figure
+semilogy(past_lat, past_chl)
+hold on
+semilogy(amt_optics.uway.lat, amt_optics.acs.chl,'r')
+#semilogy(amt_optics.uway. amt_optics.acs.chl,'r')
+#figure
+#semilogy(amt_optics.uway.time-t0, amt_optics.acs.chl,'r')
 
 if ~exist(DIR_STEP3,'dir')
     mkdir(DIR_STEP3)

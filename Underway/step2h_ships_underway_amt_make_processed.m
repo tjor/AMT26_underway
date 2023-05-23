@@ -48,6 +48,7 @@ function tmp = step2h_ships_underway_amt_make_processed(doy, DIR_GPS, GLOB_GPS, 
          endif
       endfor
 
+
       flds2 = fieldnames(tmp2);
       for ifld2=2:length(flds2) % skips time field
          tmp.(flds2{ifld2}) = nan(size(tmp.time));
