@@ -246,8 +246,8 @@ def main(amt_n, amt_y):
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
-    parser.add_argument('--amt', default='28', help="Number of AMT cruise to process")
-    parser.add_argument('--year', default='2018', help="Year of AMT cruise to process")
+    parser.add_argument('--amt', default='26', help="Number of AMT cruise to process")
+    parser.add_argument('--year', default='2016', help="Year of AMT cruise to process")
     args = parser.parse_args()
     amt_n = args.amt
     amt_y = args.year
