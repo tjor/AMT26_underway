@@ -26,13 +26,13 @@ WAP_ROOT = strcat(lower(CRUISE),'_16')
 % dates
  
  
-inidate = "20160923"; # 
+#inidate = "20160923"; # 
 #enddate=  "20160928"; # 
-#inidate = "20161014"; #
-#enddate = "20161016"; #
+inidate = "20161016"; #
+enddate = "20161016"; #
 # enddate = "20161015" #
 # inidate = "20161018"; #
-enddate = "20161102";  # 
+#enddate = "20161102";  # 
 
 #inidate = "20161016"; # missing metadata?
 #enddate = "20161016"; 
@@ -50,8 +50,8 @@ enddate = "20161102";  #
 % Hour of the day for which Wapped files are searched
 % (day is not processed if a file for the specified hour is not found)
 % Format is "0HH"
-#WAPhour = "019"; % tjor: `processes all days with 0XXth hour of data present"
-WAPhour = "02"; % for final day
+WAPhour = "019"; % tjor: `processes all days with 0XXth hour of data present"
+#WAPhour = "02"; % for final day
 
 % Underway subdirectory where to find special wapped data
 % Leave with simple / if no special case
@@ -141,10 +141,17 @@ PATH_TS = PATH_SHIP; # no compress directory for amt 26
 # 
 # here we assume that the ship"s uway data are always stored in daily folders called YYYYDOY (e.g., 2018290) 
 addpath(UWAY_DIR) # location where rd seatech and ocean logger functions are stored
-DIR_GPS = PATH_TS;
+#DIR_GPS = PATH_TS;
+#GLOB_GPS = "2016\*";
+#FN_GPS = "seatex-gga.ACO";
+#FNC_GPS = @rd_seatech_gga; # this function should be inside Source/Underway
+
+DIR_GPS = PATH_TS; # use for day missing gga data file
 GLOB_GPS = "2016\*";
-FN_GPS = "seatex-gga.ACO";
-FNC_GPS = @rd_seatech_gga; # this function should be inside Source/Underway
+FN_GPS = "seatex-gll.ACO";
+FNC_GPS = @rd_seatech_ggl; # this function should be inside Source/Underway
+
+
 
 DIR_METDATA = PATH_TS;
 GLOB_METDATA = "2016\*";

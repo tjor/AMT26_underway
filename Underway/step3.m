@@ -263,7 +263,8 @@ t0 = y0(str2num(inidate(1:4)));
 amt_optics.time = amt_optics.acs.time + t0     ;%     
 amt_optics.acs.time = amt_optics.acs.time + t0     ;%   
 amt_optics.ac9.time = amt_optics.ac9.time + t0     ;%   
-                                      
+
+               
 
 % Interpolate ship's underway on acs time  % tjor: p
 % Starting from 2 removes time from the uway field
@@ -272,6 +273,8 @@ for ifield = 1:length(fields)
    amt_optics.uway.(fields{ifield}) = total_uway.(fields{ifield});
 endfor
 
+                       
+keyboard
 
 % wv532 = find(amt_optics.acs.wv>=532,1);
 % 
