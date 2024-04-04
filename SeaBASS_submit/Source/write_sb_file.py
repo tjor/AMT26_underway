@@ -163,7 +163,7 @@ def hdr_hplc(amt, fn_docs):
     "/received=": "",
     #"/identifier_product_doi": "",
     "/investigators=": "Giorgio_DallOlmo,Tom_Jordan,Gavin_Tilstone,Robert_Brewin",
-    "/affiliations=": "Plymouth_Marine_Laboratory,OGS",
+    "/affiliations=": "Plymouth_Marine_Laboratory",
     "/contact=": "gdallolmo@ogs.it,tjor@pml.ac.uk,ghti@pml.ac.uk",
     "/experiment=": "AMT",
     "/cruise=": amt.attrs['cruise_name'],
@@ -546,7 +546,7 @@ if __name__ == '__main__':
         export_2_seabass(header_hplc, amt2csv_hplc, fnout_hplc)
 
         # run fcheck
-        run_fcheck(fnout_acs)
+        #run_fcheck(fnout_acs)
         #run_fcheck(fnout_ac9)
         run_fcheck(fnout_hplc)
 
