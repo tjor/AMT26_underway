@@ -31,7 +31,7 @@ def hdr(amt, fn_cal, fn_docs, model='ACS'):
     header = {
     "/begin_header": "",
     "/received=": "",
-    "/investigators=": "Giorgio_DallOlmo,Gavin_Tilstone,Tom_Jordan",
+    "/investigators=": "Giorgio_DallOlmo,Gavin_Tilstone,Tom_Jordan,Robert_Brewin",
     "/affiliations=": "Plymouth_Marine_Laboratory,OGS",
     "/contact=": "gdallolmo@ogs.it,ghti@pml.ac.uk,tjor@pml.ac.uk",
     "/experiment=": "AMT",
@@ -73,26 +73,26 @@ def hdr(amt, fn_cal, fn_docs, model='ACS'):
             _fields = _fields + "ap" + str(iwv) + ","
             _units = _units + "1/m,"
         for iwv in amt.wv.values:# add std_ap
-            _fields = _fields + "ap" + str(iwv) + "_sd,"
+            _fields = _fields + "ap" + str(iwv) + "_unc,"
             _units = _units + "1/m,"
         for iwv in amt.wv.values:# add std_ap
             _fields = _fields + "cp" + str(iwv) + ","
             _units = _units + "1/m,"
         for iwv in amt.wv.values:# add std_cp
-            _fields = _fields + "cp" + str(iwv) + "_sd,"
+            _fields = _fields + "cp" + str(iwv) + "_unc,"
             _units = _units + "1/m,"
     elif model == 'AC9':
         for iwv in amt.ac9_wv.values:# add ap
             _fields = _fields + "ap" + str(iwv) + ","
             _units = _units + "1/m,"
         for iwv in amt.ac9_wv.values:# add std_ap
-            _fields = _fields + "ap" + str(iwv) + "_sd,"
+            _fields = _fields + "ap" + str(iwv) + "_unc,"
             _units = _units + "1/m,"
         for iwv in amt.ac9_wv.values:# add std_ap
             _fields = _fields + "cp" + str(iwv) + ","
             _units = _units + "1/m,"
         for iwv in amt.ac9_wv.values:# add std_cp
-            _fields = _fields + "cp" + str(iwv) + "_sd,"
+            _fields = _fields + "cp" + str(iwv) + "_unc,"
             _units = _units + "1/m,"
 
     # add final parts to strings
@@ -162,15 +162,15 @@ def hdr_hplc(amt, fn_docs):
     "/begin_header": "",
     "/received=": "",
     #"/identifier_product_doi": "",
-    "/investigators=": "Giorgio_DallOlmo,Gavin_Tilstone,Tom_Jordan",
+    "/investigators=": "Giorgio_DallOlmo,Tom_Jordan,Gavin_Tilstone,Robert_Brewin",
     "/affiliations=": "Plymouth_Marine_Laboratory,OGS",
-    "/contact=": "gdallolmo@ogs.it,ghti@pml.ac.uk,tjor@pml.ac.uk",
+    "/contact=": "gdallolmo@ogs.it,tjor@pml.ac.uk,ghti@pml.ac.uk",
     "/experiment=": "AMT",
     "/cruise=": amt.attrs['cruise_name'],
     "/station=": "NA",
     "/data_file_name=": "",
     "/documents=": fn_docs,     
-    "/calibration_files=": 'DAN-2019-012.pdf', 
+    "/calibration_files=": 'AMT_26ESA_Pigments_methods.docx', 
     "/data_type=": "pigment",
     "/data_status=": "preliminary",
     "/start_date=": "yyyymmdd",
@@ -182,7 +182,8 @@ def hdr_hplc(amt, fn_docs):
     "/east_longitude=": "DD.DDD[DEG]",
     "/west_longitude=": "DD.DDD[DEG]",
     "/water_depth=": "NA",
-    "/HPLC_lab=": 'DHI',
+    "/HPLC_lab=": 'PML',
+    "/HPLC_lab_technician=":"Denise_Cummings,Ruth_Airs",
     "/missing=": "-9999",
     "/delimiter=": "comma",
     "/fields=": "", 
@@ -195,9 +196,12 @@ def hdr_hplc(amt, fn_docs):
 
     # add wavelengths to /fields and 1/m to units    
     #_fields ='hplc_dhi_id,sample,station,depth,lat,lon,dates,times,bottle,volfilt,allo,alpha-beta-car,but-fuco,chl-c1c2,chl-c3,chlide-a,diadino,diato,dp,dv-chl-a,fuco,hex-fuco,lut,mv-chl_a,neo,perid,phide-a,phytin-a,ppc,pras,psc,psp,tacc,tcar,tchl,tot-chl-a,tot-chl-b,tot-chl-c,tpg,viola,zea'
-    _fields ='sample,station,depth,lat,lon,year,month,day,time,bottle,volfilt,allo,alpha-beta-car,asta,but-fuco,Chl_a,Chl_c1,chl_c1c2,chl_c2,chl_c3,chlide_a,diadino,diato,dp,dv_chl_a,fuco,hex-fuco,lut,mg_DVP,neo,perid,ppc,pras,psc,psp,tacc,tcar,tchl,tot_chl_a,tot_chl_b,tot_chl_c,tpg,viola,zea,beta-beta-Car,beta-epi-Car' # caution: copied from hdr function
-    _units = 'none,none,m,degrees,degrees,yyyy,mo,dd,HH:MM:SS,none,l,ug/l,ug/l,ug/l,ug/l,ug/l,ug/l,ug/l,ug/l,ug/l,ug/l,ug/l,ug/l,ug/l,ug/l,ug/l,ug/l,ug/l,ug/l,ug/l,ug/l,ug/l,ug/l,ug/l,ug/l,ug/l,ug/l,ug/l,ug/l,ug/l,ug/l,ug/l,ug/l,ug/l,ug/l,ug/l'
+    _fields ='sample,station,depth,lat,lon,year,month,day,time,volfilt,allo,alpha-beta-car,asta,but-fuco,Chl_a,Chl_c1,chl_c1c2,chl_c2,chl_c3,chlide_a,diadino,diato,dp,dv_chl_a,fuco,hex-fuco,lut,mg_DVP,neo,perid,ppc,pras,psc,psp,tacc,tcar,tchl,tot_chl_a,tot_chl_b,tot_chl_c,tpg,viola,zea,beta-beta-Car,beta-epi-Car' # caution: copied from hdr function
+    _units = 'none,none,m,degrees,degrees,yyyy,mo,dd,HH:MM:SS,l,ug/l,ug/l,ug/l,ug/l,ug/l,ug/l,ug/l,ug/l,ug/l,ug/l,ug/l,ug/l,ug/l,ug/l,ug/l,ug/l,ug/l,ug/l,ug/l,ug/l,ug/l,ug/l,ug/l,ug/l,ug/l,ug/l,ug/l,ug/l,ug/l,ug/l,ug/l,ug/l,ug/l,ug/l,ug/l'
     
+  #  pd.concat([sample, station, depth, lat, lon, year, month,day,time,bottle,volfilt, allo, alpha_beta_car, Asta, but_fuco, Chl_a, Chl_c1, Chl_c1c2, Chl_c2, Chl_c3, Chlide_a, diadino, diato, DP, dv_chl_a, fuco, hex_fuco, lut, mg_DVP, neo, perid, ppc, pras, psc, psp, tacc, tcar, tchl, tot_chl_a, tot_chl_b, tot_chl_c, tpg, viola, zea, beta_beta_Car, beta_epi_Car],  axis=1)
+
+   # allo, alpha_beta_car, Asta, but_fuco, Chl_a, Chl_c1, Chl_c1c2, Chl_c2, Chl_c3, Chlide_a, diadino, diato, DP, dv_chl_a, fuco, hex_fuco, lut, mg_DVP, neo, perid, ppc, pras, psc, psp, tacc, tcar, tchl, tot_chl_a, tot_chl_b, tot_chl_c, tpg, viola, zea, beta_beta_Car, beta_epi_Car
     # add strings to keys
     header["/fields="] = _fields
     header["/units="] = _units
@@ -272,7 +276,7 @@ def data_table(amt):
     acs_cp = amt['acs_cp'].to_pandas()
     acs_cp_u = amt['acs_cp_u'].to_pandas()
     acs_N = amt['acs_N'].to_pandas()
-    acs_chl_debiased = amt['acs_chl_debiased'].to_pandas() # xfield is used -  i_acs_ap_good mask ensures we select acs
+    acs_chl_debiased = amt['acs_chl_debiased_nomedfilt'].to_pandas() #
 
     # remove acs_ap == -9999
     i_acs_ap_good = acs_ap.values[:,10] != -9999
@@ -324,7 +328,7 @@ def data_table_ac9(amt):
     ac9_cp = amt['ac9_cp'].to_pandas()
     ac9_cp_u = amt['ac9_cp_u'].to_pandas()
     ac9_N = amt['ac9_N'].to_pandas()
-    ac9_chl_debiased = amt['acx_chl_debiased'].to_pandas()  # xfield is used -  i_a9s_ap_good mask ensures we select ac9
+    ac9_chl_debiased = amt['acx_chl_debiased_nomedfilt'].to_pandas()  # xfield is used -  i_a9s_ap_good mask ensures we select ac9
 
     # remove acs_ap == -9999
     i_ac9_ap_good = ac9_ap.values[:,5] != -9999
@@ -384,7 +388,7 @@ def data_table_hplc(amt):
     day = [pd.to_datetime(str(idt)).strftime('%d') for idt in amt.hplc_time.values] # picks out hplc dates and times
     day = pd.Series(day, index = amt.hplc_time.values)
     time = times
-    bottle = amt['hplc_bottle'].to_pandas()
+   # bottle = amt['hplc_bottle'].to_pandas()
     print(sorted(amt.keys()))
     volfilt = amt['hplc_volume_(l)'].to_pandas() # units = liters
       
@@ -439,12 +443,10 @@ def data_table_hplc(amt):
     beta_beta_Car = amt['hplc_beta-beta-Car'].to_pandas()
     beta_epi_Car = amt['hplc_beta-epi-Car'].to_pandas()
 
-
-
     print('     concatenating Series...')
 
                                                           
-    amt2csv = pd.concat([sample, station, depth, lat, lon, year, month,day,time,bottle,volfilt, allo, alpha_beta_car, Asta, but_fuco, Chl_a, Chl_c1, Chl_c1c2, Chl_c2, Chl_c3, Chlide_a, diadino, diato, DP, dv_chl_a, fuco, hex_fuco, lut, mg_DVP, neo, perid, ppc, pras, psc, psp, tacc, tcar, tchl, tot_chl_a, tot_chl_b, tot_chl_c, tpg, viola, zea, beta_beta_Car, beta_epi_Car],  axis=1)
+    amt2csv = pd.concat([sample, station, depth, lat, lon, year, month,day,time ,volfilt, allo, alpha_beta_car, Asta, but_fuco, Chl_a, Chl_c1, Chl_c1c2, Chl_c2, Chl_c3, Chlide_a, diadino, diato, DP, dv_chl_a, fuco, hex_fuco, lut, mg_DVP, neo, perid, ppc, pras, psc, psp, tacc, tcar, tchl, tot_chl_a, tot_chl_b, tot_chl_c, tpg, viola, zea, beta_beta_Car, beta_epi_Car],  axis=1)
 
                                                                                       
     # assign column names (hardcoded based on _fields)
@@ -468,6 +470,8 @@ def export_2_seabass(header, amt2csv, fnout):
         # the last one if you're letting Pandas produce that for you.
         # (see above).
         for key in header.keys():
+            print(key)
+            print(header[key])
             ict.write(key + header[key] + "\n")
 
         # Just write the data frame to the file object instead of
@@ -496,7 +500,7 @@ def run_fcheck(fnout):
 if __name__ == '__main__':
     
         
-# nc file #
+        # nc file #
         finalnc = '/users/rsg/tjor/scratch_network/AMT_underway/AMT26/Processed/Underway/Step3/amt26_final_with_debiased_chl.nc' # hardcoded
         amt_no = finalnc.split("/")[-1].split("_")[0]
         
@@ -508,7 +512,7 @@ if __name__ == '__main__':
         fn_docs_acs = 'checklist_acs_particulate_inline_AMT26.rtf,checklist_acs_ag_cg_AMT26.rtf,AMT26_ACS_inline_ProcessingReport.docx' # hardcoded
         # fn_docs_ac9 = 'checklist_a9s_particulate_inline_AMT28.rtf,checklist_ac9_ag_cg_AMT28.rtf,AMT28_ACS_inline_ProcessingReport.docx' # hardcoded
       
-        fn_docs_hplc = ''
+        fn_docs_hplc = 'checklist_hplc_PML_AMT26.rtf,AMT_26ESA_Pigments_methods.doc,AMT_26ESA_Pigments.xlsx'
         sys.path.append('../documents')
         
         #sys.path.append('../documents')
@@ -542,9 +546,10 @@ if __name__ == '__main__':
         export_2_seabass(header_hplc, amt2csv_hplc, fnout_hplc)
 
         # run fcheck
-        # run_fcheck(fnout_acs)
+        run_fcheck(fnout_acs)
         #run_fcheck(fnout_ac9)
         run_fcheck(fnout_hplc)
+
 
 
 # previous argv implementation
