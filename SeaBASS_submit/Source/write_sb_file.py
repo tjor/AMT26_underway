@@ -31,7 +31,7 @@ def hdr(amt, fn_cal, fn_docs, model='ACS'):
     header = {
     "/begin_header": "",
     "/received=": "",
-    "/investigators=": "Giorgio_DallOlmo,Gavin_Tilstone,Tom_Jordan,Robert_Brewin",
+    "/investigators=": "Giorgio_DallOlmo,Gavin_Tilstone,Tom_Jordan",
     "/affiliations=": "Plymouth_Marine_Laboratory,OGS",
     "/contact=": "gdallolmo@ogs.it,ghti@pml.ac.uk,tjor@pml.ac.uk",
     "/experiment=": "AMT",
@@ -57,7 +57,7 @@ def hdr(amt, fn_cal, fn_docs, model='ACS'):
     "/missing=": "-9999",
     "/delimiter=": "comma",
     "/fields=": "",
-    "/units=": "yyyymmdd, hh:mm: ss, degrees, degrees, degreesC, PSU, 1/m, 1/m, 1/m, 1/m, none, ug/L",
+    "/units=": "yyyymmdd, hh:mm: ss, degrees, degrees, degreesC, PSU, 1/m, 1/m, 1/m, 1/m, 1/m, 1/m, none, ug/L",
     "/end_header": "",
     }
 
@@ -75,7 +75,13 @@ def hdr(amt, fn_cal, fn_docs, model='ACS'):
         for iwv in amt.wv.values:# add std_ap
             _fields = _fields + "ap" + str(iwv) + "_unc,"
             _units = _units + "1/m,"
-        for iwv in amt.wv.values:# add std_ap
+        for iwv in amt.wv.values:# add ap
+            _fields = _fields + "bp" + str(iwv) + ","
+            _units = _units + "1/m,"
+        for iwv in amt.wv.values:# add std_bp
+            _fields = _fields + "bp" + str(iwv) + "_unc,"
+            _units = _units + "1/m,"
+        for iwv in amt.wv.values:# add std_bp
             _fields = _fields + "cp" + str(iwv) + ","
             _units = _units + "1/m,"
         for iwv in amt.wv.values:# add std_cp
@@ -88,7 +94,13 @@ def hdr(amt, fn_cal, fn_docs, model='ACS'):
         for iwv in amt.ac9_wv.values:# add std_ap
             _fields = _fields + "ap" + str(iwv) + "_unc,"
             _units = _units + "1/m,"
-        for iwv in amt.ac9_wv.values:# add std_ap
+        for iwv in amt.wv.values: # add bp
+            _fields = _fields + "bp" + str(iwv) + ","
+            _units = _units + "1/m,"
+        for iwv in amt.wv.values: # add std_bp
+            _fields = _fields + "bp" + str(iwv) + "_unc,"
+            _units = _units + "1/m,"
+        for iwv in amt.ac9_wv.values:# add std_cp
             _fields = _fields + "cp" + str(iwv) + ","
             _units = _units + "1/m,"
         for iwv in amt.ac9_wv.values:# add std_cp
@@ -162,7 +174,7 @@ def hdr_hplc(amt, fn_docs):
     "/begin_header": "",
     "/received=": "",
     #"/identifier_product_doi": "",
-    "/investigators=": "Giorgio_DallOlmo,Tom_Jordan,Gavin_Tilstone,Robert_Brewin",
+    "/investigators=": "Giorgio_DallOlmo,Tom_Jordan,Gavin_Tilstone",
     "/affiliations=": "Plymouth_Marine_Laboratory",
     "/contact=": "gdallolmo@ogs.it,tjor@pml.ac.uk,ghti@pml.ac.uk",
     "/experiment=": "AMT",
@@ -273,6 +285,8 @@ def data_table(amt):
     sal = amt['uway_sal'].to_pandas()
     acs_ap = amt['acs_ap'].to_pandas()
     acs_ap_u = amt['acs_ap_u'].to_pandas()
+    acs_bp = amt['acs_bp'].to_pandas()
+    acs_bp_u = amt['acs_bp_u'].to_pandas()
     acs_cp = amt['acs_cp'].to_pandas()
     acs_cp_u = amt['acs_cp_u'].to_pandas()
     acs_N = amt['acs_N'].to_pandas()
@@ -289,13 +303,15 @@ def data_table(amt):
     sal              = sal[i_acs_ap_good]
     acs_ap           = acs_ap[i_acs_ap_good]
     acs_ap_u         = acs_ap_u[i_acs_ap_good]
+    acs_bp           = acs_bp[i_acs_ap_good]
+    acs_bp_u         = acs_bp_u[i_acs_ap_good]
     acs_cp           = acs_cp[i_acs_ap_good]
     acs_cp_u         = acs_cp_u[i_acs_ap_good]
     acs_N            = acs_N[i_acs_ap_good]
     acs_chl_debiased =   acs_chl_debiased[i_acs_ap_good]
 
     print('     concatenating Series...')
-    amt2csv = pd.concat([dates, times, lat, lon, sst, sal, acs_ap, acs_ap_u, acs_cp, acs_cp_u, acs_N, acs_chl_debiased], axis=1)
+    amt2csv = pd.concat([dates, times, lat, lon, sst, sal, acs_ap, acs_ap_u, acs_bp, acs_bp_u, acs_cp, acs_cp_u, acs_N, acs_chl_debiased], axis=1)
 
     print('     removing NaNs from lat and lon...')
     # remove NaNs from lat
@@ -546,8 +562,8 @@ if __name__ == '__main__':
         export_2_seabass(header_hplc, amt2csv_hplc, fnout_hplc)
 
         # run fcheck
-        #run_fcheck(fnout_acs)
-        #run_fcheck(fnout_ac9)
+        run_fcheck(fnout_acs)
+      #  run_fcheck(fnout_ac9)
         run_fcheck(fnout_hplc)
 
 
